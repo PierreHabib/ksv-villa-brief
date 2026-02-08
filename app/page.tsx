@@ -1931,7 +1931,7 @@ export default function HomePage() {
           ${snapshotItems
             .map(
               ([label, value]) =>
-                `<li>${escapeHtml(label)}: ${escapeHtml(String(value ?? "-"))}</li>`
+                `<li>${escapeHtml(String(label))}: ${escapeHtml(String(value ?? "-"))}</li>`
             )
             .join("")}
         </ul>

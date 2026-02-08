@@ -417,9 +417,14 @@ function validateRequest(input: unknown): ValidationResult {
   }
 
   const bedrooms = input.bedrooms;
-  if (bedrooms === undefined) {
+  if (bedrooms == null) {
     errors.push({ field: "bedrooms", message: "Required field is missing." });
-  } else if (!Number.isInteger(bedrooms) || bedrooms < 1 || bedrooms > 6) {
+  } else if (
+    typeof bedrooms !== "number" ||
+    !Number.isInteger(bedrooms) ||
+    bedrooms < 1 ||
+    bedrooms > 6
+  ) {
     errors.push({
       field: "bedrooms",
       message: "Expected an integer between 1 and 6.",
@@ -534,8 +539,14 @@ function validateRequest(input: unknown): ValidationResult {
   }
 
   const narrativeSeed = input.narrativeSeed;
-  if (narrativeSeed !== undefined) {
-    if (!Number.isInteger(narrativeSeed) || narrativeSeed < 0) {
+  if (narrativeSeed != null) {
+    if (typeof narrativeSeed !== "number" || !Number.isInteger(narrativeSeed)) {
+      errors.push({
+        field: "narrativeSeed",
+        message: "Expected a non-negative integer.",
+        received: narrativeSeed
+      });
+    } else if (narrativeSeed < 0) {
       errors.push({
         field: "narrativeSeed",
         message: "Expected a non-negative integer.",
